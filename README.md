@@ -36,7 +36,7 @@ numbers in isolation are not directly comparable to M2–M4 — see `results/` f
 |---|---|---|
 | M2 | see `results/` | Re-evaluated with fixed decoding |
 | M3 | 0.024 | Fixed decoding; F1 0.514 @ thr 0.075 |
-| M3.1 | 0.091 | Best plain-FPN result; corrected figure (an earlier internal note had this as 0.065, now confirmed wrong) |
+| M3.1 | 0.065 | Best plain-FPN result; verified directly from this run's own printed log (AP50 0.142, AP75 0.047, AP_small/medium/large 0.030/0.048/0.319, Precision 0.532, Recall 0.485, F1 0.507) |
 | M4 (CPNet) | see `results/` | ~5.5x compute of M3.1, did not surpass it |
 
 Full breakdown, per-class AP counts, and compute cost in `results/`.

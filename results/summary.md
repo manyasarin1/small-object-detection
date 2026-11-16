@@ -13,8 +13,36 @@ BEAT" from an earlier completed run (M3 with fixed decoding, same evaluator and 
 - AP by size (small / medium / large): **0.012 / 0.036 / 0.105**
 
 ### M3.1 (+ per-positive loss normalization, + background prior p=0.99)
-- mAP50:95: **0.091** (confirmed correct; supersedes an earlier internal figure of 0.065 which was wrong)
-- Best plain-FPN result in the ladder so far.
+Verified directly from this training run's own printed log on Kaggle (notebook
+`manyasarin/set1-m3-2-0-new-version-direct-to-original`, Version 4, 19339.8s / ~5h22m, GPU T4x2) —
+not a spreadsheet, not a remembered figure:
+
+```
+Metric                      M3.1
+----------------------------------
+mAP50:95                   0.065
+AP50                       0.142
+AP75                       0.047
+AP_small                   0.030
+AP_medium                  0.048
+AP_large                   0.319
+Precision                  0.532
+Recall                     0.485
+F1                         0.507
+Mean IoU                   0.680
+Best conf thr              0.050
+Params (M)                 27.471
+GFLOPs                     79.120
+```
+
+This is the correct figure. An earlier pass through this project briefly (and incorrectly)
+treated 0.091 as the confirmed number — that was a mistake; 0.065 is what the actual run printed
+and is authoritative. Best plain-FPN result in the ladder so far.
+
+Also confirmed from this same log: M0/M1/M2/M3 checkpoints were **not** attached as inputs to
+this particular run (the script printed "checkpoint not found -- skipping" for all four), so
+this run's table contains only M3.1. The "M3 mAP50:95 0.024" reference elsewhere is a hardcoded
+string baked into this script's docstring from an earlier run, not something this run computed.
 
 ### M2 (objectness head)
 Re-evaluated with the fixed decoding as part of M3's and M3.1's `PREVIOUS_MODELS` pass (not from
@@ -30,9 +58,9 @@ issue was observed and never fully root-caused). Treat M1's isolated numbers as 
 
 ## M4 (CPNet backbone) — ⚠️ unresolved verification issue
 
-M4 is reported elsewhere in this project's history as underperforming M3.1 (mAP50:95 ≈ 0.058)
-despite roughly 5.5x the compute, which would make it a negative result for the CPNet backbone
-at this scale. **This number has not been re-verified against a confirmed completed training
+M4 is reported elsewhere in this project's history as underperforming M3.1 (mAP50:95 ≈ 0.058,
+vs. M3.1's verified 0.065) despite roughly 5.5x the compute, which would make it a negative
+result for the CPNet backbone at this scale. **This number has not been re-verified against a confirmed completed training
 run in this repo pass.** When the M4 Kaggle notebook's (`manyasarin/set1-m4-cpnet`) version
 history was checked, none of its saved versions corresponded to a genuine multi-hour completed
 training run — the versions found were either "Quick Version" (seconds-long) runs or
